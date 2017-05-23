@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <link rel="stylesheet" type="text/css" href="css/styles.css">
+    <link href="https://fonts.googleapis.com/css?family=Lato:400,700&amp;subset=latin-ext" rel="stylesheet">
+    <meta charset="UTF-8">
+    <title>Note Pro</title>
+</head>
+<body>
+
+<div class="flex" id="toolbar">
+    <div id="cancel" class="input">Cancel</div>
+    <div id="save" class="input" >Save</div>
+</div>
+<div id="content">
+
+
+    <div id="create_note_cont">
+        <div class="create_note">
+            <div class="lbl_title">Title</div>
+            <input type="text" class="input_title input">
+            <div class="lbl_desc">Description</div>
+            <input type="text" class="input_desc input">
+            <div class="lbl_importance">Importance</div>
+            <input type="range" min="0" max="5" class="input_importance input" name="ageInputName" id="ageInputId" value="24" min="1" max="100" oninput="ageOutputId.value = ageInputId.value">
+            <output name="ageOutputName" id="ageOutputId"></output>
+            <div class="lbl_due">Due Date</div>
+            <input type="datetime-local" class="input_due input">
+        </input>
+
+
+    </div>
+
+
+</div>
+
+
+</body>
+</html>

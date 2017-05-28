@@ -61,6 +61,18 @@ body{
 
 }
 
+.active[order=asc]:before{
+     content:"▼ ";
+ }
+
+.active[order=desc]:before{
+     content:"▲ ";
+ }
+
+.filter_item.active:after{
+    content:" ✔"
+}
+
 .input{
     padding:10px;
     margin:10px;

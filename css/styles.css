@@ -77,6 +77,11 @@ body{
     transition:all 0.25s;
 }
 
+.active{
+    background: #25b252;
+    color:white;
+}
+
 .input:hover{
     background:#25b252;
     color:white;

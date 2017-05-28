@@ -3,6 +3,7 @@
 <head>
     <link rel="stylesheet" type="text/css" href="css/styles.css">
     <link href="https://fonts.googleapis.com/css?family=Lato:400,700&amp;subset=latin-ext" rel="stylesheet">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
     <meta charset="UTF-8">
     <title>Note Pro</title>
 </head>
@@ -20,26 +21,17 @@
 <div id="content">
     <div class="flex" id="sort_filter">
         <div class="flex" id="sort_cont">
-            <div class="input sort_item">By this</div>
-            <div class="input sort_item">By this</div>
-            <div class="input sort_item">By this</div>
+            <div id="byDue" class="input sort_item active">By due Date</div>
+            <div id="byCreated" class="input sort_item">By created Date</div>
+            <div id="byImportance" class="input sort_item">By Importance</div>
         </div>
         <div class="flex" id="filter_cont">
-            <div class="input filter_item">By this</div>
+            <div class="input filter_item">Show Finished</div>
         </div>
     </div>
 
     <div id="notes_cont">
-        <div class="note">
-            <div class="time">Yesterday</div>
-            <div class="title">
-                <div class="title_text">Title</div>
-                <div class="importance">!!!</div>
-            </div>
-            <div class="edit input">Edit</div>
-            <div class="finished">y/N</div>
-            <div class="text">sdkjfsdöjfdsödl</div>
-        </div>
+
 
 
     </div>
@@ -47,6 +39,6 @@
 
 </div>
 
-
+<script src="js/scripts.js"></script>
 </body>
 </html>

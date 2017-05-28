@@ -3,7 +3,10 @@
 <head>
     <link rel="stylesheet" type="text/css" href="css/styles.css">
     <link href="https://fonts.googleapis.com/css?family=Lato:400,700&amp;subset=latin-ext" rel="stylesheet">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.18.1/moment.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.18.1/locale/de-ch.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+
     <meta charset="UTF-8">
     <title>Note Pro</title>
 </head>
@@ -12,9 +15,9 @@
 <div class="flex" id="toolbar">
     <a id="new_note" href="new.html" class="input">New Note</a>
     <div id="styleswitch" >
-        <select class="input">
-            <option class="input">Style 1</option>
-            <option class="input">Style 2</option>
+        <select class="input style">
+            <option class="input">Greenday</option>
+            <option class="input">Blue Lagoon</option>
         </select>
     </div>
 </div>
@@ -29,6 +32,7 @@
             <div class="input filter_item">Show Finished</div>
         </div>
     </div>
+
 
     <div id="notes_cont">
 

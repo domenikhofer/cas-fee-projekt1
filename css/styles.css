@@ -89,15 +89,24 @@ body{
     transition:all 0.25s;
 }
 
-.active{
+.active, .input:hover{
     background: #25b252;
     color:white;
 }
 
-.input:hover{
-    background:#25b252;
-    color:white;
+
+
+.blue{
+    color:#1781e3;
+    border-color:#1781e3;
+    background:white;
 }
+
+.active.blue, .blue:hover{
+    background:#1781e3;
+   color:white;
+}
+
 
 
 

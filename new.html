@@ -3,6 +3,8 @@
 <head>
     <link rel="stylesheet" type="text/css" href="css/styles.css">
     <link href="https://fonts.googleapis.com/css?family=Lato:400,700&amp;subset=latin-ext" rel="stylesheet">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.18.1/moment.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.18.1/locale/de-ch.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 
     <meta charset="UTF-8">
@@ -24,8 +26,7 @@
             <div class="lbl_desc">Description</div>
             <input type="text" class="input_desc input">
             <div class="lbl_importance">Importance</div>
-            <input type="range" min="0" max="5" class="input_importance input" name="ageInputName" id="ageInputId" value="24" min="1" max="100" oninput="ageOutputId.value = ageInputId.value">
-            <output name="ageOutputName" id="ageOutputId"></output>
+            <input type="number" class="input_importance input" value="3" min="0" max="5">
             <div class="lbl_due">Due Date</div>
             <input type="datetime-local" class="input_due input">
         </input>

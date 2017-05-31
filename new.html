@@ -22,13 +22,19 @@
     <div id="create_note_cont">
         <div class="create_note">
             <div class="lbl_title">Title</div>
-            <input type="text" class="input_title input">
+            <input type="text" placeholder="Title" class="input_title input">
             <div class="lbl_desc">Description</div>
-            <input type="text" class="input_desc input">
+            <input type="text" placeholder="Description" class="input_desc input">
             <div class="lbl_importance">Importance</div>
             <input type="number" class="input_importance input" value="3" min="0" max="5">
             <div class="lbl_due">Due Date</div>
-            <input type="datetime-local" class="input_due input">
+            <input type="number" min="1" max="31" placeholder="DD" class="input_due_D input">
+            <input type="number" min="1" max="12" placeholder="MM" class="input_due_M input">
+            <input type="number" min="2017" placeholder="YYYY" class="input_due_Y input">
+            <div class="lbl_dueT">Due Time</div>
+            <input type="number" min="0" max="23" placeholder="hh" class="input_due_h input">
+            <input type="number" min="0" max="59" placeholder="mm" class="input_due_m input">
+
         </input>
 
 

@@ -59,24 +59,27 @@ $(".style").change(function () {
 
 
     function loadNotes(finished) {
+        const template = $("#note_template").html();
+        const comp_template = Handlebars.compile(template);
 
         if (notes !== null) {
             $("#notes_cont").html("");
             notes.forEach(note => {
-                let appendage = `<div id="${note.id}"  class="note">
-                    <div class="time">${moment(note.due).fromNow()}</div>
-                    <div class="title">
-                        <div class="title_text">${note.title}</div>
-                        <div class="importance">${"!".repeat(note.importance)}</div>
-                    </div>
-                    <div class="edit input">Edit</div>
-                    <p><input type="checkbox" ${(note.checked===true?"checked disabled":"")} class="finished"> Finished ${(note.checked===true?"("+moment(note.checked_on).fromNow()+")":"")} </p>
-                    <div class="text">${note.desc}</div>
-                 </div>`;
+
+                const note_content = comp_template({
+                    note_id:note.id,
+                    note_due:moment(note.due).fromNow(),
+                    note_title:note.title,
+                    note_importance:"!".repeat(note.importance),
+                    note_checked: (note.checked===true?"checked disabled":""),
+                    note_checked_on: (note.checked===true?"("+moment(note.checked_on).fromNow()+")":""),
+                    note_desc:note.desc
+                });
+
                 if (note.checked === false) {
-                    $("#notes_cont").append(appendage)
+                    $("#notes_cont").append(note_content)
                 } else if (finished === true && note.checked === true) {
-                    $("#notes_cont").append(appendage);
+                    $("#notes_cont").append(note_content);
                 }
             })
         }
@@ -84,10 +87,23 @@ $(".style").change(function () {
     }
 
     function sortNotes(id, order) {
+
         if (order === "asc") {
-            notes.sort((a, b) => a[id] - b[id]);
+            notes.sort((a, b) => {
+            if(typeof(a[id])==="string"){
+              return a[id].localeCompare(b[id]);
+            }else {
+             return   a[id] - b[id]
+            }
+            });
         } else {
-            notes.sort((a, b) => b[id] - a[id]);
+            notes.sort((a, b) => {
+                if(typeof(a[id])==="string"){
+                    return b[id].localeCompare(a[id]);
+                }else {
+                    return   b[id] - a[id]
+                }
+            });
         }
         loadNotes(show_finished);
     }
@@ -96,7 +112,12 @@ $(".style").change(function () {
          $(".input_title").val(notes[id].title);
          $(".input_desc").val(notes[id].desc);
         $(".input_importance").val(notes[id].importance);
-        $(".input_due").val(notes[id].due);
+        const due = notes[id].due.split(/[-:T]+/);
+        $(".input_due_Y").val(due[0]);
+        $(".input_due_M").val(due[1]);
+        $(".input_due_D").val(due[2]);
+        $(".input_due_h").val(due[3]);
+        $(".input_due_m").val(due[4]);
     }
 
     function saveNote(param_id) {
@@ -104,10 +125,10 @@ $(".style").change(function () {
         const title = $(".input_title").val();
         const desc = $(".input_desc").val();
         const importance = $(".input_importance").val();
-        const due = new Date($(".input_due").val()).getTime();
+        const due = $(".input_due_Y").val()+"-"+pad($(".input_due_M").val())+"-"+pad($(".input_due_D").val())+"T"+pad($(".input_due_h").val())+":"+pad($(".input_due_m").val());
         const checked = false;
         const checked_on = false;
-        const created = $.now();
+        const created = moment();
 
         (notes !== null ? notes.forEach(function (x) {
             notes_temp.push(x)
@@ -147,6 +168,11 @@ $(".style").change(function () {
         return (results!==null?results[1]: 0);
     };
 
+    function pad(n) {
+        var n2 = n.split("");
+        return (n < 10&&n2.length===1) ? ("0" + n) : n;
+    }
+
 });
 
-//Form Validation / Datetimepiker + edit note-> timevalue / moment.js / sort/filter with moment.js
+//Form Validation  / irgendwann / slide down rest of note if too long

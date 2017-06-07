@@ -2,11 +2,14 @@
 <html lang="de">
 <head>
     <link rel="stylesheet" type="text/css" href="css/styles.css">
+    <link rel="stylesheet" type="text/css" href="css/jquery.datetimepicker.css">
     <link href="https://fonts.googleapis.com/css?family=Lato:400,700&amp;subset=latin-ext" rel="stylesheet">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.18.1/moment.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.18.1/locale/de-ch.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/4.0.10/handlebars.min.js"></script>
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-datetimepicker/2.5.4/build/jquery.datetimepicker.full.min.js"></script>
+
     <meta charset="UTF-8">
     <title>Note Pro</title>
 </head>
@@ -27,14 +30,10 @@
             <textarea placeholder="Description" class="input_desc input"></textarea>
             <div class="lbl_importance">Importance<div class="fineprint">(1-5)</div></div>
             <input type="number" class="input_importance input" value="3" min="0" max="5">
-            <div class="lbl_due">Due Date</div>
-            <input type="number" min="1" max="31" placeholder="DD" class="input_due_D input">
-            <input type="number" min="1" max="12" placeholder="MM" class="input_due_M input">
-            <input type="number" min="2017" placeholder="YYYY" class="input_due_Y input">
-            <div class="lbl_dueT">Due Time</div>
-            <input type="number" min="0" max="23" placeholder="hh" class="input_due_h input">
-            <input type="number" min="0" max="59" placeholder="mm" class="input_due_m input">
-            </div>
+            <div class="lbl_due">Due Date/Time</div>
+            <input class="input_datetime input" placeholder="Click to add" type="text" >
+
+        </div>
 
 
 </div>

@@ -165,6 +165,7 @@ grid-column:2;
 .edit{
     grid-column:3;
     grid-row:1/span 2;
+    max-height:25px;
 }
 
 .finished{

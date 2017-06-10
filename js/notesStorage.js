@@ -14,11 +14,6 @@ let noteStorage = (function () {
             this.checked = false;
             this.checked_on = false;
         }
-
-        check() {
-            this.checked = true;
-            this.checked_on = moment();
-        }
     }
 
     function addNote(title, desc, importance, due) {
@@ -29,11 +24,22 @@ let noteStorage = (function () {
         return note;
     }
 
+    function checkNote(id) {
+        let note = getNoteById(id);
+            note.checked = true;
+            note.checked_on = moment();
+            toStorage();
+
+
+    }
+
     function getNoteById(id) {
-        return notes.find(i => i.id === id);
+        fromStorage();
+        return notes.find(i => i.id === parseInt(id));
     }
 
     function getNotes(orderBy, order, filterBy) {
+        fromStorage();
         let filt_notes = notes.filter(x => x[filterBy] ? x[filterBy] === false : true);
 
         filt_notes.sort((a, b) => {
@@ -46,13 +52,12 @@ let noteStorage = (function () {
         if (order === "desc") {
             filt_notes.reverse();
         }
-
         return filt_notes;
+
 
     }
 
     function editNote(id, title, desc, importance, due) {
-        fromStorage();
         let note = getNoteById(id);
         note.title = title;
         note.desc = desc;
@@ -75,6 +80,7 @@ let noteStorage = (function () {
     return {
         addNote: addNote,
         editNote: editNote,
+        checkNote: checkNote,
         getNotes: getNotes,
         getNoteById: getNoteById
 

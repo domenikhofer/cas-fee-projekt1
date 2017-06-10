@@ -32,13 +32,13 @@
             <div sort="importance" order="desc" class="input sort_item">By Importance</div>
         </div>
         <div class="flex" id="filter_cont">
-            <div class="input filter_item">Show Finished</div>
+            <div filter="checked" class="input filter_item">Show Finished</div>
         </div>
     </div>
 
     <script id="note_template" type="text/x-handlebars-template">
 
-        <div id={{note_id}} class="note">
+        <div id="{{note_id}}" class="note">
             <div class="time">{{note_due}}</div>
             <div class="title">
                 <div class="title_text">{{note_title}}</div>
@@ -47,7 +47,9 @@
             <div class="edit input">Edit</div>
             <p><input type="checkbox" {{note_checked}} class="finished"> Finished {{note_checked_on}} </p>
             {{#if note_desc}}
-            <div class="text">{{note_desc}}<div class='showMore input'>▼</div></div>
+            <div class="text">{{note_desc}}
+                <div class='showMore input'>▼</div>
+            </div>
 
 
             {{/if}}
@@ -60,10 +62,33 @@
 
     </div>
 
+    <div id="create_note_cont">
+        <div class="create_note">
+            <div class="lbl_title">Title
+            </div>
+            <input type="text" placeholder="Title" class="input_title input">
+            <div class="lbl_desc">Description</div>
+            <textarea placeholder="Description" class="input_desc input"></textarea>
+            <div class="lbl_importance">Importance
+            </div>
+            <input type="number" class="input_importance input" placeholder="1-5" min="0" max="5">
+            <div class="lbl_due">Due Date/Time</div>
+            <input class="input_datetime input" placeholder="Click to add" type="text">
+            <div class="flex">
+
+                <div id="save" class="input">Save</div>
+                <div id="cancel" class="input">Cancel</div>
+            </div>
+        </div>
+
+
+    </div>
+
 
 </div>
 
 <script src="js/notesStorage.js"></script>
+<script src="js/handlebars.js"></script>
 <script src="js/scripts.js"></script>
 
 </body>

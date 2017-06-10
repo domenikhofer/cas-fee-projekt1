@@ -4,23 +4,25 @@ $(document).ready(function () {
     let notes = JSON.parse(localStorage.getItem("notes"));
     let param_id = getParams("id");
 
-    $(".input_datetime").datetimepicker({
-        minDate:0
-    });
+
 
     if (window.location.pathname.indexOf("index") > -1 && notes !== null) {
         loadNotes()
     }
 
 
-    if (param_id !== 0) {
-        editNote(param_id);
-    }
+    $(document).on("click",".save",function () {
+        let id = $(this).parent().parent().parent(".note").attr("id");
+        $("#"+id+" .input_importance").val(Math.min(Math.max(parseInt($("#"+id+" .input_importance").val()), 1), 5));
 
-    $("#save").click(function () {
-        $(".input_importance").val(Math.min(Math.max(parseInt($(".input_importance").val()), 1), 5));
-        saveNote(param_id);
+        console.log(id);
+
+         saveNote(id);
  });
+
+    $("#new_note").click(function () {
+        $("#notes_cont").append(note_content);
+    })
 
 
     $(".text").click(function () {
@@ -29,21 +31,22 @@ $(document).ready(function () {
 
     });
 
-    /*
-     $(document).on("click", function (e) {
-     console.log(e.target);
+$(".cancel").click(function () {
+location.reload();
+})
 
-     })
 
-     */
 
     $(".input").on("click focus",function () {
         $(this).removeClass("wrong");
     });
 
-    $(document).on("click", ".edit", function () {
-        let id = $(this).parent(".note").attr("id");
-        window.location.replace("new.html?id=" + id);
+    $(document).on("click", ".edit_btn", function () {
+        let id = $(this).parent().parent(".note").attr("id");
+        $("#"+id+" *").attr("disabled",false).removeClass("hidden");
+        $("#"+id+" .edit_btn").hide();
+        $("#"+id+" .finished_wrapper").hide();
+
     });
 
 
@@ -89,8 +92,10 @@ $(document).ready(function () {
             const note_content = comp_template({
                 note_id: note.id,
                 note_due: moment(note.due).isValid() ? moment(note.due, "YYYY/MM/DD HH:mm").fromNow() : note.due,
+                note_due_edit: note.due,
                 note_title: note.title,
                 note_importance: "!".repeat(note.importance),
+                note_importance_edit: note.importance,
                 note_checked: (note.checked === true ? "checked disabled" : ""),
                 note_checked_on: (note.checked === true ? "(" + moment(note.checked_on).fromNow() + ")" : ""),
                 note_desc: note.desc
@@ -120,20 +125,14 @@ $(this).find(".showMore").show();
         loadNotes();
     }
 
-    function editNote(id) {
-        $(".input_title").val(notes[id].title);
-        $(".input_desc").val(notes[id].desc);
-        $(".input_importance").val(notes[id].importance);
-        $(".input_datetime").val(notes[id].due);
 
-    }
 
     function saveNote(param_id) {
         const notes_temp = [];
-        const title = $(".input_title").val()||"No Title";
-        const desc = $(".input_desc").val()|| "No Description";
-        const importance = $(".input_importance").val();
-        const due = $(".input_datetime").val() || "Whenever you want";
+        const title = $("#"+param_id+" .input_title").val()||"No Title";
+        const desc = $("#"+param_id+" .input_desc").val()|| "No Description";
+        const importance = $("#"+param_id+" .input_importance").val();
+        const due = $("#"+param_id+" .input_datetime").val() || "Whenever you want";
         const checked = false;
         const checked_on = false;
         const created = moment();
@@ -142,12 +141,15 @@ $(this).find(".showMore").show();
             notes_temp.push(x)
         }) : "");
         const id = notes_temp.length;
-        if (param_id !== 0) {
-            notes_temp[param_id].title = title;
-            notes_temp[param_id].desc = desc;
-            notes_temp[param_id].importance = importance;
-            notes_temp[param_id].due = due;
-        } else {
+
+        //param_id index of array?
+
+        notes_temp[param_id].title = title;
+        notes_temp[param_id].desc = desc;
+        notes_temp[param_id].importance = importance;
+        notes_temp[param_id].due = due;
+
+        /*
             notes_temp.push({
                 id: id,
                 title: title,
@@ -157,8 +159,8 @@ $(this).find(".showMore").show();
                 checked: checked,
                 checked_on: checked_on,
                 created: created
-            })
-        }
+            });
+*/
         localStorage.setItem("notes", JSON.stringify(notes_temp));
         window.location.replace("index.html");
     }
@@ -176,6 +178,10 @@ $(this).find(".showMore").show();
         return (results !== null ? results[1] : 0);
     }
 
+    $(".input_datetime").datetimepicker({
+        minDate:0
     });
 
-// single page?  /buuble click evnet? / header& Footer
+    });
+
+//buuble click evnet? /finisehed button when editing?  new note?/modules+classes /checknote wrong!

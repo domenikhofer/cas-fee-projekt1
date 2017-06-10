@@ -88,18 +88,12 @@ body{
 
     transition:all 0.25s;
 }
-.input:after:active{
-    content: "Hello";
+
+
+.input_title[disabled]{
+    font-weight: 700;
 }
 
-.input::placeholder{
-    color:#25b252;
-
-}
-
-.input:hover::placeholder{
-    color:white;
-}
 
 
 .input:focus{
@@ -116,22 +110,6 @@ body{
     color:white;
 }
 
-.wrong{
-    border:1px solid #d12;
-    background:#d12;
-    color:white;
-    transition: all 1s;
-}
-
-
-
-.wrong::placeholder{
-    color:white;
-}
-
-
-
-
 
 .blue{
     color:#1781e3;
@@ -145,9 +123,24 @@ body{
 }
 
 
+.note_form{
+    width:100%;
+    max-width: 100%;
+    border:none;
+    font-size:15px;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+}
 
+.note_form[disabled]{
+    color:black;
+    background:none;
+}
 
+input::placeholder{
+    color:#25b252;
 
+}
 .time{
     grid-column:1;
     grid-row:1;
@@ -162,10 +155,12 @@ grid-column:2;
     font-weight: 700;
 }
 
+
+
 .edit{
+    margin-left: 20px;
     grid-column:3;
-    grid-row:1/span 2;
-    max-height:25px;
+    grid-row:1;
 }
 
 .finished{
@@ -184,8 +179,16 @@ grid-column:2;
     white-space: pre-line;
     max-height:35px;
     overflow:hidden;
-    padding-right:50px;
 }
+
+#cancel{
+    flex: 0 1 25%;
+}
+
+#save{
+    flex: 0 1 75%;
+}
+
 
 .long{
     max-height: none;
@@ -201,6 +204,12 @@ grid-column:2;
     display:none;
 
 }
+
+.hidden{
+    display: none;
+}
+
+
 
 
 

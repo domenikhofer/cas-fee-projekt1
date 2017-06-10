@@ -37,6 +37,11 @@ $(document).ready(function () {
 
      */
 
+    $("#new_note").click(function () {
+        noteStorage.addNote("test","test",5,"2017/06/11 15:30");
+        console.log(noteStorage.getNotes());
+    })
+
     $(".input").on("click focus",function () {
         $(this).removeClass("wrong");
     });

@@ -3,112 +3,66 @@ $(document).ready(function () {
     let sort;
     let order;
     let filter;
-    let note_id = undefined;
+    let note_id;
 
     loadNotes();
 
+    $("#new_note").on("click",function () {
+        showEditor(this);
+    });
 
-    $("#save").click(function () {
+    $("#save").on("click",function () {
         saveNote();
     });
 
-    $("#new_note").click(function () {
-        $("#create_note_cont").fadeIn();
-        $(".input").val("");
-        note_id=undefined;
+    $("#cancel").on("click",function () {
+        $("#create_note_cont").fadeOut();
+    });
 
-        $(".input_datetime").datetimepicker({
-            minDate: 0
-        });
+    $(".style").change(function () {
+        $(".input").toggleClass("blue");
 
+    });
 
-    })
+    $(".sort_item, .filter_item").on("click", function (e) {
+        sortFilter(e);
+    });
 
-
-    $(".text").click(function () {
+    $(document).on("click",".text",function () {
         $(this).toggleClass("long");
         $(this).find(".showMore").text(($(this).find(".showMore").text() === "▼" ? "▲" : "▼"));
-
     });
 
-
-
-
-    $("#cancel").click(function () {
-        $("#create_note_cont").fadeOut();
-
-    })
-
-
-    $(document).on("click", ".edit", function () {
-        note_id = $(this).parents(".note").attr("id");
-        console.log(note_id);
+    $(document).on("click",".edit", function () {
+        showEditor(this);
         editNote(note_id);
-        $(".input_datetime").datetimepicker({
-            minDate: 0
-        });
-
     });
 
-
-    $(".filter_item, .sort_item").on("click", function (e) {
-        let targ = $(e.target);
-
-        if (targ.hasClass("sort_item")) {
-            $(".sort_item").removeClass("active");
-            sort = targ.attr("sort");
-            order = targ.attr("order");
-            targ.attr("order", (order === "asc" ? "desc" : "asc"));
-            order = targ.attr("order");
-        } else {
-            filter = (targ.hasClass("active")?targ.attr("filter"):"");
-        }
-        targ.toggleClass("active");
-        filter = (targ.hasClass("active")?targ.attr("filter"):"");
-        loadNotes(sort, order, filter)
-    });
-
-
-    $(document).on("click", ".finished", function () {
+    $(".finished").on("click", function () {
         note_id = $(this).parents(".note").attr("id");
         checkNote(note_id);
     });
 
-    $(".style").change(function () {
-        if ($(this).val() === "Greenday") {
-            $(".input").removeClass("blue");
-
-        } else {
-            $(".input").addClass("blue");
-
-        }
-    });
-
-
-    function loadNotes(orderBy = "due", order = "asc", filterBy = null) {
+    function loadNotes(sort = "due", order = "asc", filter = "checked") {
         const template = $("#note_template").html();
-        const notes = noteStorage.getNotes(orderBy, order, filterBy);
-        let test = handlebars.render(template, notes);
+        const notes = noteStorage.getNotes(sort, order, filter);
+        let renderedNotes = handlebars.render(template, notes);
         $("#notes_cont").html("");
-        test.forEach(x => $("#notes_cont").append(x));
+        renderedNotes.forEach(x => $("#notes_cont").append(x));
 
         $(".text").each(function () {
             if ($(this).prop("scrollHeight") > 60) {
                 $(this).find(".showMore").show();
             }
         });
-
     }
-
 
     function editNote() {
         let note = noteStorage.getNoteById(note_id);
-
         $(".input_title").val(note.title);
         $(".input_desc").val(note.desc);
         $(".input_importance").val(note.importance);
         $(".input_datetime").val(note.due);
-$("#create_note_cont").fadeIn();
     }
 
     function saveNote() {
@@ -122,7 +76,6 @@ $("#create_note_cont").fadeIn();
         }else{
             noteStorage.editNote(note_id,title, desc, importance, due);
         }
-
         loadNotes(sort, order, filter);
         $("#create_note_cont").fadeOut();
     }
@@ -130,15 +83,30 @@ $("#create_note_cont").fadeIn();
     function checkNote() {
         noteStorage.checkNote(note_id);
 loadNotes(sort,order,filter);
-
-
     }
 
-    function getParams(name) {
-        let results = (name !== null ? new RegExp('[\?&]' + name + '=([^&#]*)').exec(window.location.href) : 0);
-        return (results !== null ? results[1] : 0);
+    function showEditor(that){
+        $("#create_note_cont").fadeIn();
+        $(".input").not(".style").val("");
+        note_id = $(that).parents(".note").attr("id");
+        $(".input_datetime").datetimepicker({
+            minDate: 0
+        });
     }
 
+    function sortFilter(e){
+        let targ = $(e.target);
+        if (targ.hasClass("sort_item")) {
+            $(".sort_item").removeClass("active");
+            sort = targ.attr("sort");
+            order = targ.attr("order", (order === "asc" ? "desc" : "asc")).attr("order");
+            targ.toggleClass("active");
+        } else {
+            filter = (targ.hasClass("active")?targ.attr("filter"):"");
+            targ.toggleClass("active");
+        }
+        loadNotes(sort, order, filter);
+    }
 });
 
-//  header& Footer //  .input.val() deletes stylepicker / test again! / invertt filter
+ //  violations /styleswitcher besser? /code,vars,selector Cleanup / Design update

@@ -4,17 +4,16 @@
     <link rel="stylesheet" type="text/css" href="css/styles.css">
     <link rel="stylesheet" type="text/css" href="css/jquery.datetimepicker.css">
     <link href="https://fonts.googleapis.com/css?family=Lato:400,700&amp;subset=latin-ext" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Josefin+Sans" rel="stylesheet">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.18.1/moment.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.18.1/locale/de-ch.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/4.0.10/handlebars.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-datetimepicker/2.5.4/build/jquery.datetimepicker.full.min.js"></script>
-
+    <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta charset="UTF-8">
     <title>Note Pro</title>
 </head>
 <body>
-
 <div class="flex" id="toolbar">
     <div id="new_note" class="input">New Note</div>
     <div id="styleswitch">
@@ -27,7 +26,7 @@
 <div id="content">
     <div class="flex" id="sort_filter">
         <div class="flex" id="sort_cont">
-            <div sort="due" order="asc" class="input sort_item active">By due Date</div>
+            <div sort="due" order="desc" class="input sort_item active">By due Date</div>
             <div sort="created" order="desc" class="input sort_item">By created Date</div>
             <div sort="importance" order="desc" class="input sort_item">By Importance</div>
         </div>
@@ -35,61 +34,43 @@
             <div filter="checked" class="input filter_item">Show Finished</div>
         </div>
     </div>
-
     <script id="note_template" type="text/x-handlebars-template">
-
         <div id="{{note_id}}" class="note">
             <div class="time">{{note_due}}</div>
             <div class="title">
                 <div class="title_text">{{note_title}}</div>
                 <div class="importance">{{note_importance}}</div>
             </div>
-            <div class="edit input">Edit</div>
-            <p><input type="checkbox" {{note_checked}} class="finished"> Finished {{note_checked_on}} </p>
+            <div class="edit input {{hide_edit}}">Edit</div>
+            <p><input type="checkbox" {{note_checked}} class="finished"> Finished {{{note_checked_on}}} </p>
             {{#if note_desc}}
             <div class="text">{{note_desc}}
                 <div class='showMore input'>▼</div>
             </div>
-
-
             {{/if}}
         </div>
     </script>
-
-
     <div id="notes_cont">
-
-
     </div>
-
     <div id="create_note_cont">
         <div class="create_note">
-            <div class="lbl_title">Title
-            </div>
+            <div class="lbl_title">Title</div>
             <input type="text" placeholder="Title" class="input_title input">
             <div class="lbl_desc">Description</div>
             <textarea placeholder="Description" class="input_desc input"></textarea>
-            <div class="lbl_importance">Importance
-            </div>
+            <div class="lbl_importance">Importance</div>
             <input type="number" class="input_importance input" placeholder="1-5" min="0" max="5">
             <div class="lbl_due">Due Date/Time</div>
             <input class="input_datetime input" placeholder="Click to add" type="text">
             <div class="flex">
-
+                <div id="cancel" class="input red">Cancel</div>
                 <div id="save" class="input">Save</div>
-                <div id="cancel" class="input">Cancel</div>
             </div>
         </div>
-
-
     </div>
-
-
 </div>
-
 <script src="js/notesStorage.js"></script>
 <script src="js/handlebars.js"></script>
 <script src="js/scripts.js"></script>
-
 </body>
 </html>

@@ -38,15 +38,15 @@ let noteStorage = (function () {
         return notes.find(i => i.id === parseInt(id));
     }
 
-    function getNotes(orderBy, order, filterBy) {
+    function getNotes(sort, order, filter) {
         fromStorage();
-        let filt_notes = notes.filter(x => x[filterBy] ? x[filterBy] === false : true);
+        let filt_notes = notes.filter(x => x[filter] ? x[filter] === false : true);
 
         filt_notes.sort((a, b) => {
-            if (typeof(a[orderBy]) === "string") {
-                return a[orderBy].localeCompare(b[orderBy]);
+            if (typeof(a[sort]) === "string") {
+                return a[sort].localeCompare(b[sort]);
             } else {
-                return a[orderBy] - b[orderBy]
+                return a[sort] - b[sort]
             }
         });
         if (order === "desc") {

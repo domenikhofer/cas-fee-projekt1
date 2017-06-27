@@ -7,11 +7,11 @@
     <link href="https://fonts.googleapis.com/css?family=Josefin+Sans" rel="stylesheet">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta charset="UTF-8">
-    <title>Note Pro</title>
+    <title>QuickNote</title>
 </head>
 <body>
 <div class="flex" id="toolbar">
-    <div id="new_note" class="input">New Note</div>
+<div class="logo"></div>
     <div id="styleswitch">
         <select class="input style">
             <option class="input">Greenday</option>
@@ -32,37 +32,39 @@
     </div>
     <script id="note_template" type="text/x-handlebars-template">
         <div id="{{note_id}}" class="note">
-            <div class="time">{{note_due}}</div>
-            <div class="title">
-                <div class="title_text">{{note_title}}</div>
-                <div class="importance">{{note_importance}}</div>
-            </div>
-            <div class="edit input {{hide_edit}}">Edit</div>
-            <p><input type="checkbox" {{note_checked}} class="finished"> Finished {{{note_checked_on}}} </p>
+            <div class="due">Due {{note_due}}</div>
+                <div class="title">{{note_title}}</div>
             {{#if note_desc}}
             <div class="text">{{note_desc}}
-                <div class='showMore input'>▼</div>
             </div>
             {{/if}}
+            <div class="importance i{{note_importance_val}}">{{note_importance}}</div>
+            <div class="edit input mini_button {{hide_edit}}">✎</div>
+            <div class="finished input mini_button {{note_checked}}">✔</div>
+            <div class="checked_created_on">{{{note_checked_on}}}<br>Created: {{{created_on}}}</div>
         </div>
     </script>
+
+    <div id="new_note" class="input">New Note</div>
     <div id="notes_cont">
     </div>
     <div id="create_note_cont">
-        <div class="create_note">
-            <div class="lbl_title">Title</div>
-            <input type="text" placeholder="Title" class="input_title input">
-            <div class="lbl_desc">Description</div>
-            <textarea placeholder="Description" class="input_desc input"></textarea>
-            <div class="lbl_importance">Importance</div>
-            <input type="number" class="input_importance input" placeholder="1-5" min="0" max="5">
-            <div class="lbl_due">Due Date/Time</div>
-            <input class="input_datetime input" placeholder="Click to add" type="text">
-            <div class="flex">
-                <div id="cancel" class="input red">Cancel</div>
-                <div id="save" class="input">Save</div>
+        <div class="note create">
+            <input class="input_datetime due input" placeholder="Due Date/Time" type="text">
+            <input type="text" placeholder="Title" class="input_title title input">
+            <textarea placeholder="Description" class="input_desc text input"></textarea>
+            <div class="importance_chooser">
+            <div class="input_importance importance input i1">!</div>
+            <div class="input_importance importance input i2">!!</div>
+            <div class="input_importance importance input i3">!!!</div>
+            <div class="input_importance importance input i4">!!!!</div>
+                <div class="input_importance importance input i5">!!!!!</div>
             </div>
-        </div>
+            <div class="cancelSave">
+                <div id="cancel" class="input mini_button red">✖</div>
+                <div id="save" class="input mini_button">✔</div>
+            </div>
+            </div>
     </div>
 </div>
 <script src="../js/libs/jquery-2.1.4.min.js"></script>

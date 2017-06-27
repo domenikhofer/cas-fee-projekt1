@@ -15,6 +15,11 @@
                 showEditor(this);
             });
 
+            $(".input_importance").on("click",function () {
+                $(".input_importance").removeClass("active");
+                $(this).toggleClass("active");
+            });
+
             $("#save").on("click", function () {
                 saveNote();
             });
@@ -25,7 +30,8 @@
 
             $(".style").change(function () {
                 $(".input").toggleClass("blue");
-
+                $(".red").removeClass("blue");
+                $(".logo").toggleClass("blue_logo");
             });
 
             $(".sort_item, .filter_item").on("click", function (e) {
@@ -55,13 +61,6 @@
                    let renderedNotes =  handlebars.renderTemplate(template, content);
                     renderedNotes.forEach(x => $("#notes_cont").append(x));
                 });
-
-
-                $(".text").each(function () {
-                    if ($(this).prop("scrollHeight") > 60) {
-                        $(this).find(".showMore").show();
-                    }
-                });
             }
 
             function editNote() {
@@ -76,11 +75,10 @@
             }
 
             function saveNote() {
-                $(".input_importance").val(Math.min(Math.max(parseInt($(".input_importance").val()), 1), 5));
                 const title = $(".input_title").val() || "No Title";
                 const desc = $(".input_desc").val() || "No Description";
-                const importance = $(".input_importance").val();
-                const due = $(".input_datetime").val() || "Whenever you want";
+                const importance = $.trim($(".input_importance.active").text()).length;
+                const due = $(".input_datetime").val() || "whenever you want";
                 if (note_id === undefined) {
                   rest.addNote(title, desc, importance, due);
                 } else {
@@ -125,9 +123,8 @@
 }(jQuery));
 
 
-//  violations /styleswitcher besser? /code,vars,selector Cleanup / Design update
-//Dependencies aufräumen, refactor+linebreaks
-//Favicon / Text when no notes / testing!
+//code,vars,selector Cleanup
+//Dependencies aufräumen  / testing! / reload-smoother / git except data
 
 //js/controllers/indexController.js = EventHandler View
 //js/services/restClient,js = Ajax Calls

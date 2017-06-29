@@ -8,10 +8,9 @@
             let noteFilter;
             let note_id;
 
-
             loadNotes();
 
-            $("#new_note").on("click", function () {
+            $("#new_note_btn").on("click", function () {
                 showEditor(this);
             });
 
@@ -25,7 +24,7 @@
             });
 
             $("#cancel").on("click", function () {
-                $("#create_note_cont").fadeOut();
+                $("#create_note_container").fadeOut();
             });
 
             $(".style").change(function () {
@@ -38,28 +37,27 @@
                 sortFilter(e);
             });
 
-            $(document).on("click", ".text", function () {
-                $(this).toggleClass("long");
-                $(this).find(".showMore").text(($(this).find(".showMore").text() === "▼" ? "▲" : "▼"));
-            });
-
-            $(document).on("click", ".edit", function () {
+            $(document).on("click", ".edit_btn", function () {
                 showEditor(this);
                 editNote(note_id);
             });
 
-            $(document).on("click", ".finished",function () {
+            $(document).on("click", ".finished_btn",function () {
                 note_id = $(this).parents(".note").attr("id");
-                checkNote(note_id);
+                $("#"+note_id).animate({"height":0,"margin":0,"padding":"0 auto"},1).fadeOut(1000);
+                setTimeout(function () {
+                    checkNote(note_id);
+                },1000)
             });
 
             function loadNotes(noteSort = "due", noteOrder = "desc", noteFilter) {
                 const template = $("#note_template").html();
                 const notes = rest.getAllNotes(noteSort, noteOrder, noteFilter);
-                $("#notes_cont").html("");
+                $("#notes_container").html("");
                 notes.done((content)=>{
                    let renderedNotes =  handlebars.renderTemplate(template, content);
-                    renderedNotes.forEach(x => $("#notes_cont").append(x));
+                    renderedNotes.forEach(x => $("#notes_container").append(x));
+                    if($(".style").hasClass("blue")){$(".input").addClass("blue")}
                 });
             }
 
@@ -68,10 +66,9 @@
                 note.done((content)=>{
                     $(".input_title").val(content.title);
                     $(".input_desc").val(content.desc);
-                    $(".input_importance").val(content.importance);
+                    $(".i"+content.importance).addClass("active");
                     $(".input_datetime").val(content.due);
                 })
-
             }
 
             function saveNote() {
@@ -85,17 +82,17 @@
                     rest.editNote(note_id, title, desc, importance, due);
                 }
                 loadNotes(noteSort, noteOrder, noteFilter);
-                $("#create_note_cont").fadeOut();
+                $("#create_note_container").fadeOut();
             }
 
             function checkNote() {
                 rest.checkNote(note_id);
-                loadNotes(noteSort, noteOrder, noteFilter);
             }
 
             function showEditor(that) {
-                $("#create_note_cont").fadeIn();
+                $("#create_note_container").fadeIn();
                 $(".input").not(".style").val("");
+                $(".input_importance").removeClass("active");
                 note_id = $(that).parents(".note").attr("id");
                 $(".input_datetime").datetimepicker({
                     minDate: 0
@@ -116,17 +113,11 @@
                     loadNotes(noteSort, noteOrder, noteFilter);
                     targ.toggleClass("active");
                 }
-
             }
         });
 
 }(jQuery));
 
 
-//code,vars,selector Cleanup
-//Dependencies aufräumen  / testing! / reload-smoother / git except data
 
-//js/controllers/indexController.js = EventHandler View
-//js/services/restClient,js = Ajax Calls
-//routes/notesRoutes.js = Ajax calls routing
-//controller/notesController.js = gets request and calls notesStorage.js
+

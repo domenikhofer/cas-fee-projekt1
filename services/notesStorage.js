@@ -2,8 +2,6 @@ const Datastore = require('nedb');
 const db = new Datastore({filename: './data/notes.db', autoload: true});
 const moment = require("../public/js/libs/moment-v2.18.1");
 
-
-
 class Note {
     constructor(title, desc, importance, due) {
         this.title = title;
@@ -22,11 +20,8 @@ function addNote(title, desc, importance, due, callback) {
     db.insert(note, function (err, dbNote) {
         if (callback) {
             callback(err, dbNote);
-
         }
-
     });
-
 }
 
 function checkNote(id, callback) {
@@ -35,7 +30,6 @@ function checkNote(id, callback) {
             callback(err, dbNote);
         }
     })
-
 }
 
 function getNoteById(id, callback) {
@@ -49,10 +43,7 @@ function getNoteById(id, callback) {
 function getNotes(noteSort, noteOrder, noteFilter = "checked", callback) {
     db.find({},function (err, dbNote) {
         if (callback) {
-
-
             let filt_notes = dbNote.filter(x => x[noteFilter] ? x[noteFilter] === false : true);
-
 
             filt_notes.sort((a, b) => {
                 if (typeof(a[noteSort]) === "string") {
@@ -66,13 +57,10 @@ function getNotes(noteSort, noteOrder, noteFilter = "checked", callback) {
             }
             callback(err, filt_notes);
         }
-
-
     });
 }
 
 function editNote(id, title, desc, importance, due, callback) {
-
     db.update({_id: id}, {
         $set: {
             "title": title,

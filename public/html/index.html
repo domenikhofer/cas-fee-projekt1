@@ -1,8 +1,8 @@
 <!DOCTYPE html>
-<html lang="de">
+<html lang="en">
 <head>
-    <link rel="stylesheet" type="text/css" href="css/styles.css">
-    <link rel="stylesheet" type="text/css" href="css/jquery.datetimepicker.css">
+    <link rel="stylesheet" type="text/css" href="../css/styles.css">
+    <link rel="stylesheet" type="text/css" href="../css/jquery.datetimepicker.css">
     <link href="https://fonts.googleapis.com/css?family=Lato:400,700&amp;subset=latin-ext" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css?family=Josefin+Sans" rel="stylesheet">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -10,8 +10,8 @@
     <title>QuickNote</title>
 </head>
 <body>
-<div class="flex" id="toolbar">
-<div class="logo"></div>
+<div class="flex header">
+    <div class="logo"></div>
     <div id="styleswitch">
         <select class="input style">
             <option class="input">Greenday</option>
@@ -20,51 +20,47 @@
     </div>
 </div>
 <div id="content">
-    <div class="flex" id="sort_filter">
-        <div class="flex" id="sort_cont">
-            <div noteSort="due" noteOrder="asc" class="input sort_item active">By due Date</div>
-            <div noteSort="created" noteOrder="desc" class="input sort_item">By created Date</div>
-            <div noteSort="importance" noteOrder="desc" class="input sort_item">By Importance</div>
+    <div class="flex sort_filter_toolbar">
+        <div class="flex flex_item sort_container">
+            <div noteSort="due" noteOrder="asc" class="input flex_item sort_item active">By due Date</div>
+            <div noteSort="created_on" noteOrder="desc" class="input flex_item sort_item">By created Date</div>
+            <div noteSort="importance" noteOrder="desc" class="input flex_item sort_item">By Importance</div>
         </div>
-        <div class="flex" id="filter_cont">
-            <div noteFilter="checked" class="input filter_item">Show Finished</div>
+        <div class="flex flex_item">
+            <div noteFilter="checked" class="input flex_item filter_item">Show Finished</div>
         </div>
     </div>
     <script id="note_template" type="text/x-handlebars-template">
         <div id="{{note_id}}" class="note">
             <div class="due">Due {{note_due}}</div>
-                <div class="title">{{note_title}}</div>
-            {{#if note_desc}}
-            <div class="text">{{note_desc}}
-            </div>
-            {{/if}}
+            <div class="title">{{note_title}}</div>
+            <div class="text">{{note_desc}}</div>
             <div class="importance i{{note_importance_val}}">{{note_importance}}</div>
-            <div class="edit input mini_button {{hide_edit}}">✎</div>
-            <div class="finished input mini_button {{note_checked}}">✔</div>
+            <div class="edit_btn input mini_btn {{hide_edit}}">✎</div>
+            <div class="finished_btn input mini_btn {{note_checked}}">✔</div>
             <div class="checked_created_on">{{{note_checked_on}}}<br>Created: {{{created_on}}}</div>
         </div>
     </script>
-
-    <div id="new_note" class="input">New Note</div>
-    <div id="notes_cont">
+    <div id="new_note_btn" class="input">New Note</div>
+    <div id="notes_container">
     </div>
-    <div id="create_note_cont">
-        <div class="note create">
+    <div id="create_note_container">
+        <div class="note note_creator">
             <input class="input_datetime due input" placeholder="Due Date/Time" type="text">
             <input type="text" placeholder="Title" class="input_title title input">
             <textarea placeholder="Description" class="input_desc text input"></textarea>
             <div class="importance_chooser">
-            <div class="input_importance importance input i1">!</div>
-            <div class="input_importance importance input i2">!!</div>
-            <div class="input_importance importance input i3">!!!</div>
-            <div class="input_importance importance input i4">!!!!</div>
+                <div class="input_importance importance input i1">!</div>
+                <div class="input_importance importance input i2">!!</div>
+                <div class="input_importance importance input i3">!!!</div>
+                <div class="input_importance importance input i4">!!!!</div>
                 <div class="input_importance importance input i5">!!!!!</div>
             </div>
             <div class="cancelSave">
-                <div id="cancel" class="input mini_button red">✖</div>
-                <div id="save" class="input mini_button">✔</div>
+                <div id="cancel" class="input mini_btn red">✖</div>
+                <div id="save" class="input mini_btn">✔</div>
             </div>
-            </div>
+        </div>
     </div>
 </div>
 <script src="../js/libs/jquery-2.1.4.min.js"></script>
@@ -76,4 +72,3 @@
 <script src="../js/controllers/indexController.js"></script>
 </body>
 </html>
-

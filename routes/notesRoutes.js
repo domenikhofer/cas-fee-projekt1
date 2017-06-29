@@ -8,6 +8,4 @@ router.put("/check/:id/",notes.checkNote);
 router.get("/",notes.getNotes);
 router.get("/:id/",notes.getNoteById);
 
-
-
 module.exports = router;
